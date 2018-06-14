@@ -13,7 +13,7 @@ export const ToggleBtn = styled.button`
   position: relative;
   cursor: pointer;
   user-select: none;
-  background: #fbfbfb;
+  background-color: ${({ on }) => (on ? '#86d993' : '#fbfbfb')};
   border-radius: 4em;
   padding: 4px;
   transition: all 0.4s ease;
@@ -27,7 +27,7 @@ export const ToggleBtn = styled.button`
   }
 
   &:after {
-    left: 0;
+    left: ${({ on }) => (on ? '50%' : '0')};
     position: relative;
     display: block;
     content: '';

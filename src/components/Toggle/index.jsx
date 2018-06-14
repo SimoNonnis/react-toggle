@@ -7,7 +7,7 @@ class Toggle extends Component {
   render() {
     return (
       <Container>
-        <Title>Advanced React Component Patterns</Title>
+        <Title>Toggle</Title>
         <Switch />
       </Container>
     );

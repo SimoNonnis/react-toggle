@@ -1,11 +1,11 @@
 import React from 'react';
 import { ToggleInput, ToggleBtn } from './style';
 
-const Switch = () => {
+const Switch = ({ on }) => {
   return (
     <div>
       <ToggleInput type="checkbox" />
-      <ToggleBtn />
+      <ToggleBtn on={on} />
     </div>
   );
 };
