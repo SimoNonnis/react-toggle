@@ -10,5 +10,5 @@ export const Container = styled.div`
 
 export const Title = styled.h1`
   font-size: 25px;
-  color: coral;
+  color: #6b6360;
 `;

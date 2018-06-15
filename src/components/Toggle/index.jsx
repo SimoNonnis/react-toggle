@@ -8,7 +8,7 @@ class Toggle extends Component {
     return (
       <Container>
         <Title>Toggle</Title>
-        <Switch />
+        <Switch on />
       </Container>
     );
   }
