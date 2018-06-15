@@ -11,7 +11,7 @@ class Toggle extends Component {
     };
   }
 
-  handleSwitch = () => this.setState({ on: !this.state.on });
+  handleSwitch = () => this.setState(({ on }) => ({ on: !on }));
 
   render() {
     return (
