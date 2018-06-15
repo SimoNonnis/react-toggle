@@ -1,26 +1,46 @@
-import React, { Component } from 'react';
+import React, { Component, Children, cloneElement } from 'react';
 import Switch from '../Switch';
 
-import { Container, Title } from './style';
+import { Container, Title, Text } from './style';
 
 class Toggle extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      on: false
-    };
-  }
+  static Title = ({ children }) => <Title>{children}</Title>;
+  static On = ({ on, children }) => (on ? <Text>{children}</Text> : null);
+  static Off = ({ on, children }) => (on ? null : <Text>{children}</Text>);
+  static Button = ({ on, handleSwitch }) => (
+    <Switch on={on} onClick={handleSwitch} />
+  );
 
-  handleSwitch = () => this.setState({ on: !this.state.on });
+  state = {
+    on: false
+  };
+
+  handleSwitch = () => this.setState(({ on }) => ({ on: !on }));
 
   render() {
+    const { on } = this.state;
+    const { children } = this.props;
+
     return (
       <Container>
-        <Title>Toggle</Title>
-        <Switch on={this.state.on} onClick={this.handleSwitch} />
+        {Children.map(children, child =>
+          cloneElement(child, {
+            on: on,
+            handleSwitch: this.handleSwitch
+          })
+        )}
       </Container>
     );
   }
 }
 
-export default Toggle;
+const Compound = () => (
+  <Toggle>
+    <Toggle.Title>Compound component</Toggle.Title>
+    <Toggle.Button />
+    <Toggle.On>Toggle is On</Toggle.On>
+    <Toggle.Off>Toggle is Off</Toggle.Off>
+  </Toggle>
+);
+
+export default Compound;

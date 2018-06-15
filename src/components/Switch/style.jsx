@@ -22,8 +22,7 @@ export const ToggleBtn = styled.button`
   &:focus:after,
   &:active:after {
     box-sizing: initial;
-    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1), 0 4px 0 rgba(0, 0, 0, 0.08),
-      inset 0px 0px 0px 3px #9c9c9c;
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1), 0 4px 0 rgba(0, 0, 0, 0.08);
   }
 
   &:after {
