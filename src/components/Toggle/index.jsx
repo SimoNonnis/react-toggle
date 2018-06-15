@@ -1,14 +1,26 @@
-import React, { Component, Children, cloneElement } from 'react';
+import React, { Component, createContext } from 'react';
 import Switch from '../Switch';
 
 import { Container, Title, Text } from './style';
 
+const ToggleContext = createContext();
+
 class Toggle extends Component {
   static Title = ({ children }) => <Title>{children}</Title>;
-  static On = ({ on, children }) => (on ? <Text>{children}</Text> : null);
-  static Off = ({ on, children }) => (on ? null : <Text>{children}</Text>);
-  static Button = ({ on, handleSwitch }) => (
-    <Switch on={on} onClick={handleSwitch} />
+  static On = ({ children }) => (
+    <ToggleContext.Consumer>
+      {({ on }) => (on ? <Text>{children}</Text> : null)}
+    </ToggleContext.Consumer>
+  );
+  static Off = ({ children }) => (
+    <ToggleContext.Consumer>
+      {({ on }) => (on ? null : <Text>{children}</Text>)}
+    </ToggleContext.Consumer>
+  );
+  static Button = () => (
+    <ToggleContext.Consumer>
+      {({ on, handleSwitch }) => <Switch on={on} onClick={handleSwitch} />}
+    </ToggleContext.Consumer>
   );
 
   state = {
@@ -23,12 +35,14 @@ class Toggle extends Component {
 
     return (
       <Container>
-        {Children.map(children, child =>
-          cloneElement(child, {
+        <ToggleContext.Provider
+          value={{
             on: on,
             handleSwitch: this.handleSwitch
-          })
-        )}
+          }}
+        >
+          {children}
+        </ToggleContext.Provider>
       </Container>
     );
   }
