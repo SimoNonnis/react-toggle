@@ -6,23 +6,6 @@ import { Container, Title, Text } from './style';
 const ToggleContext = createContext();
 
 class Toggle extends Component {
-  static Title = ({ children }) => <Title>{children}</Title>;
-  static On = ({ children }) => (
-    <ToggleContext.Consumer>
-      {({ on }) => (on ? <Text>{children}</Text> : null)}
-    </ToggleContext.Consumer>
-  );
-  static Off = ({ children }) => (
-    <ToggleContext.Consumer>
-      {({ on }) => (on ? null : <Text>{children}</Text>)}
-    </ToggleContext.Consumer>
-  );
-  static Button = () => (
-    <ToggleContext.Consumer>
-      {({ on, handleSwitch }) => <Switch on={on} onClick={handleSwitch} />}
-    </ToggleContext.Consumer>
-  );
-
   state = {
     on: false
   };
@@ -31,30 +14,17 @@ class Toggle extends Component {
 
   render() {
     const { on } = this.state;
-    const { children } = this.props;
 
     return (
       <Container>
-        <ToggleContext.Provider
-          value={{
-            on: on,
-            handleSwitch: this.handleSwitch
-          }}
-        >
-          {children}
-        </ToggleContext.Provider>
+        <Title>Render Props</Title>
+        <Switch on={on} onClick={this.handleSwitch} />
+
+        <Text>Toggle is {on ? 'ON' : 'OFF'}</Text>
+        <button onClick={this.handleSwitch}>{on ? 'ON' : 'OFF'}</button>
       </Container>
     );
   }
 }
 
-const Compound = () => (
-  <Toggle>
-    <Toggle.Title>Compound component</Toggle.Title>
-    <Toggle.Button />
-    <Toggle.On>Toggle is On</Toggle.On>
-    <Toggle.Off>Toggle is Off</Toggle.Off>
-  </Toggle>
-);
-
-export default Compound;
+export default Toggle;
