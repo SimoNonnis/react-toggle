@@ -11,7 +11,7 @@ class Toggle extends Component {
   handleSwitch = () => this.setState(({ on }) => ({ on: !on }));
 
   render() {
-    return this.props.renderUI({
+    return this.props.children({
       on: this.state.on,
       handleSwitch: this.handleSwitch
     });
@@ -19,8 +19,8 @@ class Toggle extends Component {
 }
 
 const RenderProps = () => (
-  <Toggle
-    renderUI={({ on, handleSwitch }) => (
+  <Toggle>
+    {({ on, handleSwitch }) => (
       <Container>
         <Title>Render Props</Title>
         <Switch on={on} onClick={handleSwitch} />
@@ -29,7 +29,7 @@ const RenderProps = () => (
         <button onClick={handleSwitch}>{on ? 'ON' : 'OFF'}</button>
       </Container>
     )}
-  />
+  </Toggle>
 );
 
 export default RenderProps;
