@@ -1,9 +1,17 @@
-import React, { Component, createContext } from 'react';
+import React, { Component } from 'react';
 import Switch from '../Switch';
 
 import { Container, Title, Text } from './style';
 
-const ToggleContext = createContext();
+const renderUI = ({ on, handleSwitch }) => (
+  <Container>
+    <Title>Render Props</Title>
+    <Switch on={on} onClick={handleSwitch} />
+
+    <Text>Toggle is {on ? 'ON' : 'OFF'}</Text>
+    <button onClick={handleSwitch}>{on ? 'ON' : 'OFF'}</button>
+  </Container>
+);
 
 class Toggle extends Component {
   state = {
@@ -14,17 +22,10 @@ class Toggle extends Component {
 
   render() {
     const { on } = this.state;
-
-    return (
-      <Container>
-        <Title>Render Props</Title>
-        <Switch on={on} onClick={this.handleSwitch} />
-
-        <Text>Toggle is {on ? 'ON' : 'OFF'}</Text>
-        <button onClick={this.handleSwitch}>{on ? 'ON' : 'OFF'}</button>
-      </Container>
-    );
+    return renderUI({ on: on, handleSwitch: this.handleSwitch });
   }
 }
 
-export default Toggle;
+const RenderProps = () => <Toggle />;
+
+export default RenderProps;
